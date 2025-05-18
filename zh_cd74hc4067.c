@@ -36,7 +36,7 @@ static zh_cd74hc4067_init_config_t _init_config = {0};
 static uint8_t _connected_gpio = 0;
 static bool _is_initialized = false;
 
-static bool _zh_cd74hc4067_gpio_check(uint8_t a, uint8_t b, uint8_t c, uint8_t d, uint8_t e, uint8_t f);
+static bool _zh_cd74hc4067_gpio_check(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t en, uint8_t control);
 
 esp_err_t zh_cd74hc4067_init(const zh_cd74hc4067_init_config_t *config)
 {
@@ -98,12 +98,12 @@ gpio_num_t zh_cd74hc4067_pin(void)
     return (gpio_num_t)_init_config.control_gpio_number;
 }
 
-static bool _zh_cd74hc4067_gpio_check(uint8_t a, uint8_t b, uint8_t c, uint8_t d, uint8_t e, uint8_t f)
+static bool _zh_cd74hc4067_gpio_check(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t en, uint8_t control)
 {
-    uint8_t matrix[] = {a, b, c, d, e, f};
-    for (uint8_t i = 0; i <= sizeof(matrix); ++i)
+    uint8_t matrix[] = {s0, s1, s2, s3, en, control};
+    for (uint8_t i = 0; i < sizeof(matrix); ++i)
     {
-        for (uint8_t j = i + 1; j <= sizeof(matrix); ++j)
+        for (uint8_t j = i + 1; j < sizeof(matrix); ++j)
         {
             if (matrix[i] == matrix[j])
             {
