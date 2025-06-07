@@ -42,7 +42,7 @@ void app_main(void)
     gpio_config_t pin_config = {
         .pin_bit_mask = (1ULL << GPIO_NUM_4)}; // Set control GPIO on ESP.
     gpio_config(&pin_config);
-    zh_cd74hc4067_init_config_t init_config = {
+    zh_cd74hc4067_init_config_t cd74hc4067_init_config = {
         .control_gpio_number = GPIO_NUM_4,
         .en_gpio_number = GPIO_NUM_18,
         .s0_gpio_number = GPIO_NUM_19,
@@ -50,7 +50,7 @@ void app_main(void)
         .s2_gpio_number = GPIO_NUM_21,
         .s3_gpio_number = GPIO_NUM_22,
     };
-    zh_cd74hc4067_init(&init_config);
+    zh_cd74hc4067_init(&cd74hc4067_init_config);
     gpio_set_direction(zh_cd74hc4067_pin(), GPIO_MODE_OUTPUT); // Set control GPIO on ESP to output.
     gpio_set_level(zh_cd74hc4067_set(10), 1);                  // Connect 10 GPIO on CD74HC4067 and set it to HIGH.
     zh_cd74hc4067_set(12);                                     // Connect 12 GPIO on CD74HC4067.
