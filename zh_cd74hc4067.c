@@ -32,8 +32,8 @@ static const uint32_t _cd74hc4067_matrix[16][4] = {
     {1, 1, 1, 1}};
 
 static zh_cd74hc4067_init_config_t _init_config = {0};
-static zh_cd74hc4067_gpio_num_t _connected_gpio = ZH_CD74HC4067_GPIO_NUM_P0;
-static bool _is_initialized = false;
+volatile static zh_cd74hc4067_gpio_num_t _connected_gpio = ZH_CD74HC4067_GPIO_NUM_P0;
+volatile static bool _is_initialized = false;
 
 static esp_err_t _zh_cd74hc4067_validate_config(const zh_cd74hc4067_init_config_t *config);
 static esp_err_t _zh_cd74hc4067_gpio_init(const zh_cd74hc4067_init_config_t *config);
