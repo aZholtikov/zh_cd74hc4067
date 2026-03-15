@@ -7,6 +7,18 @@
 #include "esp_log.h"
 #include "driver/gpio.h"
 
+/**
+ * @brief CD74HC4067 multiplexer initial default values.
+ */
+#define ZH_CD74HC4067_INIT_CONFIG_DEFAULT()  \
+    {                                        \
+        .s0_gpio_number = GPIO_NUM_MAX,      \
+        .s1_gpio_number = GPIO_NUM_MAX,      \
+        .s2_gpio_number = GPIO_NUM_MAX,      \
+        .s3_gpio_number = GPIO_NUM_MAX,      \
+        .control_gpio_number = GPIO_NUM_MAX, \
+        .en_gpio_number = GPIO_NUM_MAX}
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -29,6 +41,10 @@ extern "C"
      * @brief Initialize CD74HC4067 multiplexer.
      *
      * @param[in] config Pointer to CD74HC4067 initialized configuration structure. Can point to a temporary variable.
+     *
+     * @note Before initialize the multiplexer recommend initialize zh_cd74hc4067_init_config_t structure with default values.
+     *
+     * @code zh_cd74hc4067_init_config_t config = ZH_CD74HC4067_INIT_CONFIG_DEFAULT() @endcode
      *
      * @return ESP_OK if success or an error code otherwise.
      */
