@@ -81,14 +81,14 @@ extern "C"
      *
      * @return Control GPIO number or -1 otherwise.
      */
-    gpio_num_t zh_cd74hc4067_set(uint8_t gpio);
+    gpio_num_t zh_cd74hc4067_set(zh_cd74hc4067_gpio_num_t gpio);
 
     /**
      * @brief Get CD74HC4067 connected GPIO.
      *
      * @return GPIO number.
      */
-    uint8_t zh_cd74hc4067_get(void);
+    zh_cd74hc4067_gpio_num_t zh_cd74hc4067_get(void);
 
     /**
      * @brief Get CD74HC4067 control GPIO number.
