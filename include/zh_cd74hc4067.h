@@ -25,6 +25,30 @@ extern "C"
 #endif
 
     /**
+     * @brief Enumeration of CD74HC4067 multiplexer GPIO.
+     */
+    typedef enum
+    {
+        ZH_CD74HC4067_GPIO_NUM_P0 = 0,
+        ZH_CD74HC4067_GPIO_NUM_P1,
+        ZH_CD74HC4067_GPIO_NUM_P2,
+        ZH_CD74HC4067_GPIO_NUM_P3,
+        ZH_CD74HC4067_GPIO_NUM_P4,
+        ZH_CD74HC4067_GPIO_NUM_P5,
+        ZH_CD74HC4067_GPIO_NUM_P6,
+        ZH_CD74HC4067_GPIO_NUM_P7,
+        ZH_CD74HC4067_GPIO_NUM_P8,
+        ZH_CD74HC4067_GPIO_NUM_P9,
+        ZH_CD74HC4067_GPIO_NUM_P10,
+        ZH_CD74HC4067_GPIO_NUM_P11,
+        ZH_CD74HC4067_GPIO_NUM_P12,
+        ZH_CD74HC4067_GPIO_NUM_P13,
+        ZH_CD74HC4067_GPIO_NUM_P14,
+        ZH_CD74HC4067_GPIO_NUM_P15,
+        ZH_CD74HC4067_GPIO_NUM_MAX
+    } zh_cd74hc4067_gpio_num_t;
+
+    /**
      * @brief Sructure for initial initialization of CD74HC4067 multiplexer.
      */
     typedef struct

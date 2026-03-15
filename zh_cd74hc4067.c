@@ -57,7 +57,7 @@ gpio_num_t zh_cd74hc4067_set(uint8_t gpio)
 {
     ZH_LOGI("CD74HC4067 connect GPIO started.");
     ZH_ERROR_CHECK(_is_initialized == true, ESP_FAIL, NULL, "CD74HC4067 connect GPIO failed. CD74HC4067 not initialized.");
-    ZH_ERROR_CHECK(gpio <= 15, ESP_FAIL, NULL, "CD74HC4067 initialization failed. Invalid argument.");
+    ZH_ERROR_CHECK(gpio < ZH_CD74HC4067_GPIO_NUM_MAX, ESP_FAIL, NULL, "CD74HC4067 initialization failed. Invalid argument.");
     esp_err_t err = gpio_set_level(_init_config.en_gpio_number, 1);
     ZH_ERROR_CHECK(err == ESP_OK, ESP_FAIL, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
     err = gpio_set_level(_init_config.s0_gpio_number, _cd74hc4067_matrix[gpio][0]);
