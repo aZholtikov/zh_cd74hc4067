@@ -43,10 +43,8 @@ esp_err_t zh_cd74hc4067_init(const zh_cd74hc4067_init_config_t *config) // -V200
     ZH_LOGI("CD74HC4067 initialization started.");
     ZH_ERROR_CHECK(config != NULL, ESP_ERR_INVALID_ARG, NULL, "CD74HC4067 initialization failed. Invalid argument.");
     ZH_ERROR_CHECK(_is_initialized == false, ESP_ERR_INVALID_STATE, NULL, "CD74HC4067 initialization failed. CD74HC4067 is already initialized.");
-    esp_err_t err = _zh_cd74hc4067_validate_config(config);
-    ZH_ERROR_CHECK(err == ESP_OK, err, NULL, "CD74HC4067 initialization failed. Invalid GPIO number.");
-    err = _zh_cd74hc4067_gpio_init(config);
-    ZH_ERROR_CHECK(err == ESP_OK, err, NULL, "CD74HC4067 initialization failed. GPIO initialization failed.");
+    ZH_ERROR_CHECK(_zh_cd74hc4067_validate_config(config) == ESP_OK, ESP_FAIL, NULL, "CD74HC4067 initialization failed. Invalid GPIO number.");
+    ZH_ERROR_CHECK(_zh_cd74hc4067_gpio_init(config) == ESP_OK, ESP_FAIL, NULL, "CD74HC4067 initialization failed. GPIO initialization failed.");
     _init_config = *config;
     _is_initialized = true;
     ZH_LOGI("CD74HC4067 initialization completed successfully.");
@@ -58,18 +56,12 @@ gpio_num_t zh_cd74hc4067_set(zh_cd74hc4067_gpio_num_t gpio) // -V2008
     ZH_LOGI("CD74HC4067 connect GPIO started.");
     ZH_ERROR_CHECK(_is_initialized == true, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. CD74HC4067 not initialized.");
     ZH_ERROR_CHECK(gpio < ZH_CD74HC4067_GPIO_NUM_MAX, GPIO_NUM_NC, NULL, "CD74HC4067 initialization failed. Invalid argument.");
-    esp_err_t err = gpio_set_level((gpio_num_t)_init_config.en_gpio_number, 1);
-    ZH_ERROR_CHECK(err == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
-    err = gpio_set_level((gpio_num_t)_init_config.s0_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][0]);
-    ZH_ERROR_CHECK(err == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
-    err = gpio_set_level((gpio_num_t)_init_config.s1_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][1]);
-    ZH_ERROR_CHECK(err == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
-    err = gpio_set_level((gpio_num_t)_init_config.s2_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][2]);
-    ZH_ERROR_CHECK(err == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
-    err = gpio_set_level((gpio_num_t)_init_config.s3_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][3]);
-    ZH_ERROR_CHECK(err == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
-    err = gpio_set_level((gpio_num_t)_init_config.en_gpio_number, 0);
-    ZH_ERROR_CHECK(err == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
+    ZH_ERROR_CHECK(gpio_set_level((gpio_num_t)_init_config.en_gpio_number, 1) == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
+    ZH_ERROR_CHECK(gpio_set_level((gpio_num_t)_init_config.s0_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][0]) == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
+    ZH_ERROR_CHECK(gpio_set_level((gpio_num_t)_init_config.s1_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][1]) == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
+    ZH_ERROR_CHECK(gpio_set_level((gpio_num_t)_init_config.s2_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][2]) == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
+    ZH_ERROR_CHECK(gpio_set_level((gpio_num_t)_init_config.s3_gpio_number, _cd74hc4067_matrix[(uint8_t)gpio][3]) == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
+    ZH_ERROR_CHECK(gpio_set_level((gpio_num_t)_init_config.en_gpio_number, 0) == ESP_OK, GPIO_NUM_NC, NULL, "CD74HC4067 connect GPIO failed. GPIO driver internal error.");
     ZH_LOGI("CD74HC4067 connect GPIO completed successfully.");
     _connected_gpio = gpio;
     return (gpio_num_t)_init_config.control_gpio_number;
@@ -109,7 +101,6 @@ static esp_err_t _zh_cd74hc4067_gpio_init(const zh_cd74hc4067_init_config_t *con
         .pin_bit_mask = (1ULL << config->s0_gpio_number) | (1ULL << config->s1_gpio_number) | (1ULL << config->s2_gpio_number) |
                         (1ULL << config->s3_gpio_number) | (1ULL << config->en_gpio_number),
     };
-    esp_err_t err = gpio_config(&pin_config);
-    ZH_ERROR_CHECK(err == ESP_OK, err, NULL, "GPIO initialization failed.");
+    ZH_ERROR_CHECK(gpio_config(&pin_config) == ESP_OK, ESP_FAIL, NULL, "GPIO initialization failed.");
     return ESP_OK;
 }
