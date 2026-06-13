@@ -53,12 +53,12 @@ extern "C"
      */
     typedef struct
     {
-        uint8_t s0_gpio_number;      /*!< GPIO connected to S0 of CD74HC4067 multiplexer. */
-        uint8_t s1_gpio_number;      /*!< GPIO connected to S1 of CD74HC4067 multiplexer. */
-        uint8_t s2_gpio_number;      /*!< GPIO connected to S2 of CD74HC4067 multiplexer. */
-        uint8_t s3_gpio_number;      /*!< GPIO connected to S3 of CD74HC4067 multiplexer. */
-        uint8_t control_gpio_number; /*!< GPIO connected to SIG of CD74HC4067 multiplexer. */
-        uint8_t en_gpio_number;      /*!< GPIO connected to EN of CD74HC4067 multiplexer. */
+        gpio_num_t s0_gpio_number;      /*!< GPIO connected to S0 of CD74HC4067 multiplexer. */
+        gpio_num_t s1_gpio_number;      /*!< GPIO connected to S1 of CD74HC4067 multiplexer. */
+        gpio_num_t s2_gpio_number;      /*!< GPIO connected to S2 of CD74HC4067 multiplexer. */
+        gpio_num_t s3_gpio_number;      /*!< GPIO connected to S3 of CD74HC4067 multiplexer. */
+        gpio_num_t control_gpio_number; /*!< GPIO connected to SIG of CD74HC4067 multiplexer. */
+        gpio_num_t en_gpio_number;      /*!< GPIO connected to EN of CD74HC4067 multiplexer. */
     } zh_cd74hc4067_init_config_t;
 
     /**
